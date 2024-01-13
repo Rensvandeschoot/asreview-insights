@@ -12,9 +12,30 @@ from asreviewcontrib.insights import plot_wss
 from asreviewcontrib.insights.metrics import get_metrics
 from asreviewcontrib.insights.metrics import print_metrics
 from asreviewcontrib.insights.utils import _iter_states
+from asreviewcontrib.insights.read import read
 
 TYPE_TO_FUNC = {"recall": plot_recall, "wss": plot_wss, "erf": plot_erf}
 
+class ReadEntryPoint(BaseEntryPoint):
+    description = "Read and output project file details."
+    extension_name = "asreview-insights"
+
+    def execute(self, argv):
+        parser = argparse.ArgumentParser(prog="asreview read")
+        parser.add_argument(
+            "project_file",
+            type=str,
+            help="Path to the ASReview project file (.asreview)."
+        )
+        parser.add_argument(
+            "-o", "--output",
+            default=None,
+            help="Path to save the extracted data as CSV."
+        )
+        args = parser.parse_args(argv)
+
+        # Call the read and output function from Read class
+        read.read_and_output(args.project_file, args.output)
 
 class PlotEntryPoint(BaseEntryPoint):
     description = "Plotting functionality for ASReview files."

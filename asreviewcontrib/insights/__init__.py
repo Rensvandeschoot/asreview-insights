@@ -4,6 +4,7 @@ from asreviewcontrib.insights.metrics import wss
 from asreviewcontrib.insights.plot import plot_erf
 from asreviewcontrib.insights.plot import plot_recall
 from asreviewcontrib.insights.plot import plot_wss
+from asreviewcontrib.insights.read import read
 
 try:
     from asreviewcontrib.insights._version import __version__
@@ -13,4 +14,4 @@ except ImportError:
     __version_tuple__ = (0, 0, 0)
 
 
-__all__ = ["plot_recall", "plot_wss", "plot_erf", "erf", "recall", "wss"]
+__all__ = ["plot_recall", "plot_wss", "plot_erf", "erf", "recall", "wss", "read"]

@@ -1,0 +1,5 @@
+To display the contents of an ASReview project file and to save to a CSV file:
+
+```bash
+asreview read <path_to_project_file> -o <output_file>.csv
+

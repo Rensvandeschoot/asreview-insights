@@ -26,6 +26,7 @@ repository = "https://github.com/asreview/asreview-insights"
 [project.entry-points."asreview.entry_points"]
 plot = "asreviewcontrib.insights.entrypoint:PlotEntryPoint"
 metrics = "asreviewcontrib.insights.entrypoint:MetricsEntryPoint"
+read = "asreviewcontrib.insights.entrypoint:ReadEntryPoint"
 
 [project.optional-dependencies]
 lint = ["ruff"]
