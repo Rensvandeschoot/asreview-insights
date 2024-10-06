@@ -24,12 +24,8 @@ class read:
                 formatted_data.append((key, formatted_value))
                 print(f"{key}: {formatted_value}")
 
-            # Convert to DataFrame in long format
-            project_df = pd.DataFrame(formatted_data, columns=['Key', 'Value'])
-
-            # Save to CSV or Excel if output path is provided
+            # Convert to DataFrame and save
+            
             if output_path:
-                if output_path.endswith('.xlsx'):
-                    project_df.to_excel(output_path, index=False)
-                else:
-                    project_df.to_csv(output_path, index=False)
+                project_df = pd.DataFrame(formatted_data, columns=['Key', 'Value'])
+                project_df.to_csv(output_path, index=False)

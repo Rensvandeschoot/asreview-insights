@@ -1,5 +1,15 @@
-To display the contents of an ASReview project file and to save to a CSV file:
+## Accessing descriptive data from project file
+
+To display the contents of the project description and model settings from an
+ASReview project file and to save to a CSV file:
 
 ```bash
 asreview read <path_to_project_file> -o <output_file>.csv
 
+
+## Accessing Review Data
+
+To extract and save the review data that was stored during the review process in ASReview, use the following command:
+
+```bash
+asreview extract <path_to_project_file> -o <output_review_data>.csv
