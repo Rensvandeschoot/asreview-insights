@@ -13,7 +13,7 @@ class extract:
 
         Parameters:
         - project_file_name: Path to the ASReview project file.
-        - output_path: Optional output path to save the merged dataset as CSV.
+        - output_path: Optional output path to save the merged dataset as Excel.
 
         Returns:
         - merged_dataset: Merged pandas DataFrame containing original dataset and state information.
