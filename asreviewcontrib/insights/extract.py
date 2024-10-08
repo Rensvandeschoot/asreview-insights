@@ -35,8 +35,8 @@ class extract:
             print(merged_dataset.head())
             print(f"The merged dataset contains {len(merged_dataset)} records.")
 
-            # Save as CSV
+            # Save as Excel
             if output_path:
-                merged_dataset.to_csv(output_path, index=False)
+                merged_dataset.to_excel(output_path, index=False)
 
             return merged_dataset
