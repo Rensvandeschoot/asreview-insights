@@ -8,6 +8,16 @@ import tempfile
 class extract:
     @staticmethod
     def extract_and_output(project_file_name, output_path=None):
+        """
+        Extract data from ASReview state and merge it with the original dataset.
+
+        Parameters:
+        - project_file_name: Path to the ASReview project file.
+        - output_path: Optional output path to save the merged dataset as CSV.
+
+        Returns:
+        - merged_dataset: Merged pandas DataFrame containing original dataset and state information.
+        """
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_project_path = Path(temp_dir)
 
