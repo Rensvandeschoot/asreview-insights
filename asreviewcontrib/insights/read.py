@@ -8,6 +8,16 @@ import json
 class read:
     @staticmethod
     def read_and_output(project_file_name, output_path=None):
+         """
+        Read project details and model settings metadata from an ASReview project.
+
+        Parameters:
+        - project_file_name: Path to the ASReview project file.
+        - output_path: Optional output path to save the project details and settings as CSV.
+
+        This function reads the project file to extract both the project details and settings metadata. 
+        """
+
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_project_path = Path(temp_dir)
             project = ASReviewProject.load(project_file_name, temp_project_path)
