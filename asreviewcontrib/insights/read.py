@@ -8,7 +8,7 @@ import json
 class read:
     @staticmethod
     def read_and_output(project_file_name, output_path=None):
-         """
+        """
         Read project details and model settings metadata from an ASReview project.
 
         Parameters:
