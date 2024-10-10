@@ -1,13 +1,17 @@
-import pandas as pd
-from asreview import open_state, ASReviewProject, ASReviewData
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
+from asreview import ASReviewData
+from asreview import ASReviewProject
+from asreview import open_state
+
 
 class extract:
     @staticmethod
     def extract_and_output(project_file_name, output_path=None, file_format="xlsx"):
         """
-        Extract data from ASReview state, merge it with the original dataset, and sort it.
+        Extract data from ASReview state, merge it with the original dataset,
+        and sort it.
 
         Parameters:
         - project_file_name: Path to the ASReview project file.
@@ -21,8 +25,13 @@ class extract:
             temp_project_path = Path(temp_dir)
 
             # Load the project and access project details
-            project = ASReviewProject.load(project_file_name, temp_project_path)
-            dataset_fp = Path(temp_project_path, project.config["id"], "data", project.config["dataset_path"])
+            project = ASReviewProject.load(
+                project_file_name, temp_project_path
+            )
+            dataset_fp = Path(
+                temp_project_path, project.config["id"], "data",
+                project.config["dataset_path"]
+            )
             dataset = ASReviewData.from_file(dataset_fp)
             dataset_df = dataset.to_dataframe()
 
@@ -31,20 +40,24 @@ class extract:
                 df = state.get_dataset()
 
                 # Drop the 'notes' column from df to avoid conflicts
-                df = df.drop(columns=['notes'], errors='ignore')
+                df = df.drop(columns=["notes"], errors="ignore")
                 
                 df["labeling_order"] = df.index
-                df_state = dataset_df.join(df.set_index("record_id"), on="record_id", how="left")
+                df_state = dataset_df.join(
+                    df.set_index("record_id"), on="record_id", how="left"
+                )
 
                 # Get ranking and probabilities
                 last_ranking = state.get_last_ranking()
                 last_probabilities = state.get_last_probabilities()
 
-                # Drop overlapping columns from last_ranking to avoid conflicts during the join
+                # Drop overlapping columns from last_ranking to avoid conflicts
                 last_ranking = last_ranking.drop(
-                    columns=['classifier', 'query_strategy', 'balance_strategy', 
-                             'feature_extraction', 'training_set'],
-                    errors='ignore'
+                    columns=[
+                        "classifier", "query_strategy", "balance_strategy",
+                        "feature_extraction", "training_set"
+                    ],
+                    errors="ignore"
                 )
 
                 # Ensure that 'record_id' is used as the index for joining
@@ -52,11 +65,17 @@ class extract:
                 last_ranking.set_index("record_id", inplace=True)
 
             # Merge state information into the original dataset step by step
-            merged_dataset = df_state.join(last_probabilities, on="record_id", how="left")
-            merged_dataset = merged_dataset.join(last_ranking, on="record_id", how="left")
+            merged_dataset = df_state.join(
+                last_probabilities, on="record_id", how="left"
+            )
+            merged_dataset = merged_dataset.join(
+                last_ranking, on="record_id", how="left"
+            )
 
             # Sort the merged dataset based on 'training_set'
-            merged_dataset = merged_dataset.sort_values(by='training_set', ascending=True)
+            merged_dataset = merged_dataset.sort_values(
+                by="training_set", ascending=True
+            )
 
             print(f"The state contains {len(df_state)} records.")
             print(merged_dataset.head())
@@ -71,7 +90,8 @@ class extract:
                 else:
                     raise ValueError(
                         f"Invalid output format or file extension. "
-                        f"Expected `.xlsx` or `.csv` but got file extension '{Path(output_path).suffix}'. "
+                        f"Expected `.xlsx` or `.csv`, " 
+                        f"but got file extension '{Path(output_path).suffix}'. "
                         f"Ensure the output_path has the correct extension."
                     )
 
