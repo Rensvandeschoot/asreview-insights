@@ -64,11 +64,15 @@ class extract:
 
             # Save as Excel or CSV based on the specified format
             if output_path:
-                if file_format.lower() == "xlsx":
+                if output_path.lower().endswith("xlsx"):
                     merged_dataset.to_excel(output_path, index=False)
-                elif file_format.lower() == "csv":
+                elif output_path.lower().endswith("csv"):
                     merged_dataset.to_csv(output_path, index=False)
                 else:
-                    raise ValueError("Invalid file format. Choose 'xlsx' or 'csv'.")
+                    raise ValueError(
+                        f"Invalid output format or file extension. "
+                        f"Expected `.xlsx` or `.csv` but got file extension '{Path(output_path).suffix}'. "
+                        f"Ensure the output_path has the correct extension."
+                    )
 
             return merged_dataset
