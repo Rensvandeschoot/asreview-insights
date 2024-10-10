@@ -1,9 +1,11 @@
+import json
+import tempfile
+from pathlib import Path
+
 import pandas as pd
 from asreview import ASReviewProject
 from asreview import open_state
-from pathlib import Path
-import tempfile
-import json
+
 
 class read:
     @staticmethod
@@ -13,9 +15,11 @@ class read:
 
         Parameters:
         - project_file_name: Path to the ASReview project file.
-        - output_path: Optional output path to save the project details and settings as CSV.
+        - output_path: Optional output path to save the project details and
+          settings as CSV.
 
-        This function reads the project file to extract both the project details and settings metadata. 
+        This function reads the project file to extract both the project
+        details and settings metadata. 
         """
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -30,7 +34,11 @@ class read:
             # Prepare data for DataFrame and printing
             formatted_data = []
             for key, value in {**project_details, **settings}.items():
-                formatted_value = json.dumps(value, indent=4) if isinstance(value, (dict, list)) else value
+                formatted_value = (
+                    json.dumps(value, indent=4) 
+                    if isinstance(value, (dict, list)) 
+                    else value
+                )
                 formatted_data.append((key, formatted_value))
                 print(f"{key}: {formatted_value}")
 
