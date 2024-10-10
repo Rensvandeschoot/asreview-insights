@@ -744,7 +744,9 @@ with open_state("example.asreview") as s:
 
 ## Accessing data from project file
 
-### Read settings
+For transparancy reasons, as explained in [Lombaers et al. (2024)](https://doi.org/10.3390/app14093842), meta-data about the project and the machine learning models, as well as much more data from the labeler is stored in the ` asreview.project` file. It is possible to extract this data via the [API](https://asreview.readthedocs.io/en/latest/example_api_asreview_file.html), and via ASReview-Insights also via the functions `read` and `extract`.  
+
+### Read
 
 To display the contents of the project description and model settings from an
 ASReview project file and to save to a CSV file, run:
@@ -800,6 +802,13 @@ state_version: 1
 software_version: 1.0rc4
 model_has_trained: True
 ```
+
+### Extract
+
+To extract and save the review data that was stored during the review process in ASReview, use the following command:
+
+```bash
+asreview extract <path_to_project_file> -o <output_review_data>.csv
 ```
 
 
